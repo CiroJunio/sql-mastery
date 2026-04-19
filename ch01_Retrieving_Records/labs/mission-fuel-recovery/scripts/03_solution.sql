@@ -1,14 +1,15 @@
-SELECT truck_id,  
-       COALESCE(battery_voltage, 10) AS SCORE,
+SELECT truck_id AS ID,  
+       critical_score AS SCORE,
     CASE 
-        WHEN fuel_level < 15 THEN 'CRITICAL'
-        WHEN fuel_level > 15 THEN 'MONITORING'
-        ELSE 'OK'
+        WHEN critical_score < 15 THEN 'CRITICAL'
+        ELSE 'MONITOR'
     END AS SITUATION
-FROM truck_telemetry 
-where COALESCE(fuel_level, 0) <= 20
-LIMIT 5;
-
-
-SELECT *
-FROM truck_telemetry
+FROM (
+    SELECT
+        truck_id,
+        COALESCE(fuel_level, 0) + COALESCE(battery_voltage, 10) AS critical_score
+        FROM truck_telemetry
+) AS subquery_graxa
+WHERE critical_score < 20
+ORDER BY critical_score ASC
+LIMIT 10;
