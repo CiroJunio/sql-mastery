@@ -1,11 +1,10 @@
 SELECT truck_id,  
-       COALESCE(fuel_level, 0) AS fuel_level, 
-       COALESCE(battery_voltage, 10) AS battery_voltage,
+       COALESCE(battery_voltage, 10) AS SCORE,
     CASE 
         WHEN fuel_level < 15 THEN 'CRITICAL'
         WHEN fuel_level > 15 THEN 'MONITORING'
         ELSE 'OK'
-    END AS SCORE
+    END AS SITUATION
 FROM truck_telemetry 
 where COALESCE(fuel_level, 0) <= 20
 LIMIT 5;
