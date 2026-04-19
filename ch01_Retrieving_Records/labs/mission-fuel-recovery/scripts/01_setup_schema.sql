@@ -1,4 +1,4 @@
--- 1. SETUP DO AMBIENTE (O Pântano)
+-- 01_setup_schema.sql
 CREATE TABLE truck_telemetry (
     truck_id INTEGER PRIMARY KEY,
     driver_name VARCHAR(50),
