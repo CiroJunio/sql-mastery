@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: logistics_db
+    environment:
+      POSTGRES_USER: techlead
+      POSTGRES_PASSWORD: deepwork
+      POSTGRES_DB: mission_recovery
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./scripts:/docker-entrypoint-initdb.d/
